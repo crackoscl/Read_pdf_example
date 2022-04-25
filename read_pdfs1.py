@@ -35,6 +35,7 @@ def extract_text_pdf(pdf):
             nombre = line_nombre_fecha.group(2)
             fecha = line_nombre_fecha.group(4)
 
+
         elif line_rut_fecha:
             rut = line_rut_fecha.group(2)
             f_vencimiento = line_rut_fecha.group(5)
@@ -45,9 +46,8 @@ def extract_text_pdf(pdf):
             cantidad = line_producto_fecha.group(4)
             precio_uni = line_producto_fecha.group(6)
             total = line_producto_fecha.group(7)
-            
             line_items.append(Boleta(boleta,fecha,nombre,rut,codigo,descripcion,cantidad,precio_uni,total))
-            
+
     return line_items
 
 
@@ -68,6 +68,8 @@ def pdf_text_to_csv(file_name,data):
 
 if __name__ == "__main__":
         data = read_pdfs(pdfs)
-        create_csv = pdf_text_to_csv('boletas.csv',data)
-        print(create_csv)
-    
+        if data:
+            create_csv = pdf_text_to_csv('boletas.csv',data)
+            print('csv Creado correctamente !!!')
+        else:
+            print('no se pudo extraer la data !!!')
